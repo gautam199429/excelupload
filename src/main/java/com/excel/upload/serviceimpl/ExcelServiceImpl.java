@@ -145,6 +145,10 @@ public class ExcelServiceImpl implements ExcelService {
             taskRepo.save(task);
             insertIntoMainTable(taskId);
         } catch (Exception e) {
+            TaskMaster task = taskRepo.findById(taskId).orElseThrow();
+            task.setTaskStages(TaskStages.ERROR);
+            task.setErrorMessage(e.getMessage());
+            taskRepo.save(task);
             throw new RuntimeException("Failed to process Excel file", e);
         }
     }
