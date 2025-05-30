@@ -57,7 +57,6 @@ public class ExcelServiceImpl implements ExcelService {
         try {
             List<ExcelLead> leads = leadRepo.findByTaskIdAndRecordStatus(taskId,RecordStatus.GOOD);
             for(ExcelLead singel : leads){
-                System.out.println("SINGELLLLL"+new Gson().toJson(singel));
                 rawLeadDataRepo.save(new RawLeadData(singel.getName(), singel.getMobile(), singel.getAssociateId()));
                 singel.setUploadRemark("Successfully uploaded to table");
                 leadRepo.save(singel);
